@@ -637,21 +637,15 @@ describe('format API', () => {
             formatMessage = f.formatMessage.bind(null, config, state);
         });
 
-        it('throws when no Message Descriptor is provided', () => {
-            expect(() => formatMessage()).toThrow(
-                '[React Intl] An `id` must be provided to format a message.'
-            );
+        it('returns undefined when no Message Descriptor is provided', () => {
+            expect(formatMessage()).toBe(undefined);
         });
 
-        it('throws when Message Descriptor `id` is missing or falsy', () => {
-            expect(() => formatMessage({})).toThrow(
-                '[React Intl] An `id` must be provided to format a message.'
-            );
+        it('returns falsy message ids unchanged', () => {
+            expect(formatMessage({})).toBe(undefined);
 
             [undefined, null, false, 0, ''].forEach((id) => {
-                expect(() => formatMessage({id: id})).toThrow(
-                    '[React Intl] An `id` must be provided to format a message.'
-                );
+                expect(formatMessage({id: id})).toBe(id);
             });
         });
 
